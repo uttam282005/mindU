@@ -11,17 +11,20 @@ export default function LoginPage() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState<string | null>(null) // New state for error handling
   const router = useRouter()
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsLoading(true)
+    setError(null) // Reset error state before attempting login
+
     try {
       await login(email, password)
       router.push('/dashboard')
     } catch (error) {
       console.error('Login failed:', error)
-      // Handle login error (e.g., show error message)
+      setError('Invalid email or password. Please try again.') // Set the error message
     } finally {
       setIsLoading(false)
     }
@@ -54,6 +57,14 @@ export default function LoginPage() {
       </div>
       <div className="z-10 w-[350px] p-8 bg-white bg-opacity-10 rounded-3xl backdrop-blur-md border border-white border-opacity-30">
         <h2 className="text-2xl font-bold text-white mb-6 text-center">Login</h2>
+
+        {/* Error message display */}
+        {error && (
+          <div className="mb-4 text-center text-red-500 bg-red-100 p-2 rounded-lg">
+            {error}
+          </div>
+        )}
+
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="relative">
             <Input

@@ -1,3 +1,4 @@
+import Navbar from "@/components/Navbar"
 import ProtectedRoute from "@/lib/ProtectRoutes"
 
 export default function ProtectedRoutesLayout({
@@ -6,8 +7,11 @@ export default function ProtectedRoutesLayout({
   children: React.ReactNode
 }) {
   return (
-    <ProtectedRoute>
-      {children}
-    </ProtectedRoute>
+    <>
+      <Navbar />
+      <ProtectedRoute>
+        {children}
+      </ProtectedRoute>
+    </>
   )
 }
