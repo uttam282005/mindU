@@ -111,7 +111,7 @@ export default function ChatBot() {
         ))}
       </AnimatePresence>
 
-      <h1 className="text-2xl font-bold text-center py-4 text-blue-600">Friendly Chat</h1>
+      <h1 className="text-2xl font-bold text-center py-4 text-blue-600">Ask Your Queries</h1>
 
       {messages.length === 0 && (
         <div className="flex flex-wrap justify-center gap-2 mb-4 px-4">
@@ -119,7 +119,7 @@ export default function ChatBot() {
             <Button
               key={index}
               onClick={() => handleSend()}
-              className="bg-white text-blue-500 hover:bg-blue-100"
+              className="bg-white text-blue-500 hover:bg-blue-100 mt-5"
             >
               {question}
             </Button>
@@ -145,7 +145,7 @@ export default function ChatBot() {
                     <AvatarFallback>{message.sender === "user" ? "U" : "B"}</AvatarFallback>
                   </Avatar>
                   <div
-                    className={`mx - 2 p - 3 rounded - lg ${message.sender === "user" ? "bg-blue-500 text-white" : "bg-white"
+                    className={`mx - 2 p - 3 rounded - lg ${message.sender === "user" ? "px-1 pt-1 bg-blue-500 text-white" : "bg-white"
                       }`}
                   >
                     <CompileMdx source={message.text} />
@@ -178,7 +178,7 @@ export default function ChatBot() {
           className="flex-grow resize-none bg-white/80 backdrop-blur-sm"
           rows={2}
         />
-        <Button onClick={() => handleSend()} className="bg-blue-500 hover:bg-blue-600">
+        <Button onClick={() => handleSend()} className="bg-blue-500 hover:bg-blue-600 mt-3">
           Send
         </Button>
       </div>

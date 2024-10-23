@@ -1,0 +1,138 @@
+---
+title: 'Helping Your Worries Float Away: A Kid's Guide to Feeling Better'
+description: 'Fun and friendly tips to help children understand and manage anxiety and stress'
+date: '2024-10-23'
+author: 'Wellness Warriors Team'
+---
+
+import { Card } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Alert, AlertDescription } from '@/components/ui/alert';
+import { Star, Heart, Sun } from 'lucide-react';
+
+<div className="max-w-4xl mx-auto px-4 py-8">
+
+# 🌈 Helping Your Worries Float Away
+
+<Alert variant="info" className="my-6">
+  <div className="flex items-center gap-3">
+    <Star className="h-5 w-5 text-blue-500" />
+    <AlertDescription>
+      Hey there! Sometimes our minds can feel like a jar full of buzzing butterflies. 
+      That's okay! Let's learn how to help those butterflies fly in formation.
+    </AlertDescription>
+  </div>
+</Alert>
+
+## What Are Worry Butterflies? 🦋
+
+Everyone gets worried sometimes - even grown-ups! When we feel worried or stressed, it might feel like:
+
+* Having butterflies in your tummy
+* Your heart beating fast like a drum
+* Your thoughts zooming around like race cars
+* Feeling like you want to hide under your blanket
+
+<Card className="p-6 my-8 bg-gradient-to-r from-purple-50 to-pink-50">
+  <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
+    <Heart className="text-pink-500" />
+    Your Calm-Down Toolbox 🧰
+  </h3>
+  
+  Here are some super-cool tricks you can try when the worry butterflies come to visit:
+
+  1. **The Balloon Breath** 🎈
+     - Pretend your tummy is a balloon
+     - Breathe in slowly through your nose, making the balloon bigger
+     - Blow out slowly through your mouth, letting the balloon shrink
+     - Do this 5 times
+  
+  2. **The Superhero Pose** 🦸‍♀️
+     - Stand tall like your favorite superhero
+     - Put your hands on your hips
+     - Take big, brave breaths
+     - Remember: You're stronger than you think!
+  
+  3. **The Worry Monster Drawing** 🎨
+     - Draw your worries as silly monsters
+     - Give them funny names
+     - Color them in your favorite colors
+     - Sometimes making worries look silly helps them feel smaller!
+</Card>
+
+## Fun Activities to Try 🌟
+
+<div className="grid md:grid-cols-2 gap-6 my-8">
+  <Card className="p-6 bg-green-50 hover:shadow-lg transition-shadow">
+    <h3 className="text-lg font-bold mb-3 flex items-center gap-2">
+      <Sun className="text-yellow-500" />
+      Peaceful Place Picture
+    </h3>
+    <p>
+      Close your eyes and imagine your favorite calm place. Is it the beach? 
+      A treehouse? Draw it and keep it nearby!
+    </p>
+  </Card>
+
+  <Card className="p-6 bg-yellow-50 hover:shadow-lg transition-shadow">
+    <h3 className="text-lg font-bold mb-3 flex items-center gap-2">
+      <Star className="text-purple-500" />
+      Dancing Feelings
+    </h3>
+    <p>
+      Put on your favorite song and dance those worries away! 
+      Shake, jump, and wiggle - it's like giving your worries exercise!
+    </p>
+  </Card>
+</div>
+
+## Remember... 💝
+
+<div className="bg-pink-50 rounded-lg p-6 my-8">
+  <ul className="space-y-2">
+    {[
+      "You're brave and strong",
+      "It's okay to ask for help",
+      "Your feelings matter",
+      "Tomorrow is a new day",
+      "You're not alone"
+    ].map((item, index) => (
+      <li key={index} className="flex items-center gap-2">
+        <Heart className="h-4 w-4 text-pink-500" />
+        {item}
+      </li>
+    ))}
+  </ul>
+</div>
+
+## Need to Talk? 🤗
+
+<Alert className="my-6">
+  <div className="flex items-center gap-3">
+    <Star className="h-5 w-5 text-purple-500" />
+    <AlertDescription>
+      If you're feeling worried, talk to someone you trust - like a parent, teacher, 
+      or counselor. They're like your personal worry-fighting team!
+    </AlertDescription>
+  </div>
+</Alert>
+
+<div className="text-center my-8">
+  <Button 
+    className="bg-gradient-to-r from-purple-400 to-pink-400 text-white px-8 py-4 
+               rounded-full hover:opacity-90 transition-all"
+  >
+    Download Your Calm-Down Checklist! 📝
+  </Button>
+</div>
+
+</div>
+
+export default function AnxietyBlogPost({ children }) {
+  return (
+    <article className="prose prose-lg max-w-none prose-headings:text-purple-800 
+                      prose-p:text-gray-700 prose-li:text-gray-700">
+      {children}
+    </article>
+  );
+}

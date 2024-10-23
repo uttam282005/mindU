@@ -16,7 +16,7 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-let app, analytics, db, auth;
+let app, analytics, db: any, auth: any;
 
 if (typeof window !== 'undefined') {
   app = initializeApp(firebaseConfig);

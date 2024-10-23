@@ -1,42 +1,39 @@
-// components/SignIn.tsx
 'use client'
+// pages/signup.tsx
 import { useState } from 'react';
-import { signUp, login, logout } from '@/lib/auth'
+import { signUp } from '@/lib/auth'
+import { useRouter } from 'next/navigation';
 
-const SignIn = () => {
+const Signup: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState<string | null>(null);
+  const [username, setUsername] = useState('');
+  const router = useRouter();
 
-  const handleSignIn = async (e: React.FormEvent) => {
+  const handleSignup = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const user = await signUp(email, password);
-    } catch (error: any) {
-      setError(error.message);
+      const displayName = username;
+      const userCredential = await signUp(email, password, displayName);
+      console.log(userCredential);
+      router.push('/dashboard')
+    } catch (error) {
+      console.error(error);
     }
   };
 
   return (
-    <form onSubmit={handleSignIn}>
-      <input
-        type="email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        placeholder="Email"
-        required
-      />
-      <input
-        type="password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        placeholder="Password"
-        required
-      />
-      {error && <p>{error}</p>}
-      <button type="submit">Sign In</button>
-    </form>
+    <div>
+      <h1>Sign Up</h1>
+      <form onSubmit={handleSignup}>
+        <input type="text" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} />
+        <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
+        <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
+        <button type="submit">Sign Up</button>
+      </form>
+    </div>
   );
 };
 
-export default SignIn;
+export default Signup;
+
