@@ -24,7 +24,7 @@ type QuestionSet = {
 }
 
 const questionSets: QuestionSet[] = [
-  {
+    {
     id: 1,
     title: "Stress and Anxiety",
     color: "from-pink-300 to-red-300",
@@ -71,7 +71,7 @@ const questionSets: QuestionSet[] = [
       { id: 4, text: "How often do you reach out to others when you need support?" },
       { id: 5, text: "How fulfilled do your relationships make you feel?" },
     ],
-  },
+   }, 
   {
     id: 5,
     title: "Productivity and Motivation",
@@ -121,6 +121,7 @@ export default function Component() {
   const handleGetFeeback = () => {
     setShowDetailedFeedback(true);
   }
+
   const isSetComplete = () => {
     return currentSet.questions.every((q) => answers[currentSet.id]?.[q.id])
   }
@@ -145,9 +146,7 @@ export default function Component() {
   const handleSubmit = async () => {
     setShowFeedback(true)
     const scores = calculateTotalScore(answers);
-    console.log(scores)
     setCategoryScores(scores);
-    console.log(categoryScores)
     confetti({
       particleCount: 100,
       spread: 70,
@@ -155,6 +154,7 @@ export default function Component() {
       colors: ['#60A5FA', '#34D399', '#FBBF24', '#F87171', '#A78BFA']
     })
     const res = await saveResponsesToDb(user?.uid!, scores);
+    console.log("request send");
     setSubmitted(true);
   }
 

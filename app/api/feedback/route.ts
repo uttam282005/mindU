@@ -37,7 +37,7 @@ export async function POST(req: NextRequest) {
           content: `Based on the following category-wise scores: ${JSON.stringify(categories)}, provide feedback, actionable suggestions, and a tag (normal / needs help / critical) based on the severity.`,
         },
       ],
-      model: "llama-3.2-11b-text-preview", // Make sure the model exists and is configured correctly
+      model: "meta-llama/llama-4-scout-17b-16e-instruct", // Make sure the model exists and is configured correctly
     });
 
     // Log the LLM response for debugging purposes

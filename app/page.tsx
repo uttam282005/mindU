@@ -1,9 +1,9 @@
 "use client"
 
 import { useState, useEffect } from "react"
+import { useRouter } from "next/navigation"
 import { motion, useAnimation } from "framer-motion"
 import { useInView } from "react-intersection-observer"
-import Image from "next/image"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
@@ -14,6 +14,8 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion"
 import { MessageSquare, Brain, PenTool, Star } from 'lucide-react'
+import { useAuth } from "@/context/AuthContext"
+import { logout } from "@/lib/auth"
 
 const Bubble = ({ size, duration, delay }: { size: string, duration: number, delay: number }) => (
   <motion.div
@@ -108,6 +110,8 @@ interface Bubble {
 
 export default function LandingPage() {
   const [bubbles, setBubbles] = useState<Bubble[]>([]);
+  const {user, loading} = useAuth();
+  const router = useRouter();
 
   useEffect(() => {
     const newBubbles: Bubble[] = Array.from({ length: 20 }, (_, i) => ({
@@ -148,9 +152,44 @@ export default function LandingPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, staggerChildren: 0.1 }}
           >
-            <motion.li><Button variant="ghost" className="text-gray-600 hover:text-gray-900">About Us</Button></motion.li>
-            <motion.li><Button variant="outline" className="bg-[#e9d8fd] text-[#805ad5] border-[#805ad5] hover:bg-[#805ad5] hover:text-white">Sign In</Button></motion.li>
-            <motion.li><Button className="bg-[#805ad5] text-white hover:bg-[#6b46c1]">Sign Up</Button></motion.li>
+<motion.li>
+  <Link 
+    href="/about" 
+    className="text-gray-600 hover:text-gray-900 transition-colors duration-200 px-4 py-2"
+  >
+    About Us
+  </Link>
+</motion.li>
+
+<motion.li>
+{!user ? (
+  <Link 
+    href="/login" 
+    className="bg-[#e9d8fd] text-[#805ad5] border border-[#805ad5] hover:bg-[#805ad5] hover:text-white transition-colors duration-200 rounded-md px-4 py-2"
+  >
+    Sign In
+  </Link>
+) : (
+  <button
+    onClick={async () => {
+      // Add your logout logic here
+      await logout(); // Make sure this function exists
+    }}
+    className="bg-[#805ad5] text-white border border-[#805ad5] hover:bg-[#6b46c1] transition-colors duration-200 rounded-md px-4 py-2"
+  >
+    Logout
+  </button>
+)}
+</motion.li>
+
+<motion.li>
+  {!user && <Link 
+    href="/signup" 
+    className="bg-[#e9d8fd] text-[#805ad5] border border-[#805ad5] hover:bg-[#805ad5] hover:text-white transition-colors duration-200 rounded-md px-4 py-2"
+  >
+    Sign Up
+  </Link> }
+</motion.li>
           </motion.ul>
         </nav>
       </header>
@@ -165,7 +204,7 @@ export default function LandingPage() {
         >
           <h2 className="text-5xl font-bold text-gray-800 mb-4">Find Peace of Mind</h2>
           <p className="text-xl text-gray-600 mb-8">Your journey to mental wellness starts here</p>
-          <Button size="lg" className="bg-[#805ad5] text-white hover:bg-[#6b46c1] text-lg px-8 py-3 rounded-full">
+          <Button onClick={() => router.push("/evalute")} size="lg" className="bg-[#805ad5] text-white hover:bg-[#6b46c1] text-lg px-8 py-3 rounded-full">
             Get Relief Now
           </Button>
         </motion.div>

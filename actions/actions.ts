@@ -7,6 +7,7 @@ interface CategoryScores {
 }
 
 export const saveResponsesToDb = async (userId: string, answers: CategoryScores) => {
+  console.log("Hello")
   try {
     // Create a new document under a 'userResponses' collection with a unique ID
     const responsesRef = collection(db, "userResponses");
@@ -37,7 +38,7 @@ export const getUserResponses = async (userId: string) => {
 
     // Process the results
     const responses: any[] = [];
-    querySnapshot.forEach((doc) => {
+    querySnapshot.forEach((doc : any) => {
       responses.push({ id: doc.id, ...doc.data() });
     });
 

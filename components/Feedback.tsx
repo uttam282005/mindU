@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useEffect, useState, useCallback } from "react"
 import { motion } from "framer-motion"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Progress } from "@/components/ui/progress"
@@ -33,48 +33,125 @@ const categoryColors = [
   "from-yellow-500 to-amber-500",
   "from-blue-500 to-cyan-500"
 ]
+// Helper function to safely parse LLM response
+const safeParseLLMResponse = (responseText: string): Response => {
+  try {
+    // Clean common LLM response issues
+    let cleanedResponse = responseText.trim();
+    
+    // Remove markdown code blocks if present
+    cleanedResponse = cleanedResponse.replace(/```json\n?|\n?```/g, '');
+    
+    // Remove any leading/trailing text that might not be JSON
+    const jsonMatch = cleanedResponse.match(/\{[\s\S]*\}/);
+    if (jsonMatch) {
+      cleanedResponse = jsonMatch[0];
+    }
+    
+    const parsed = JSON.parse(cleanedResponse);
+    
+    // Validate the structure
+    if (!parsed.feedback || !parsed.tag || !parsed.action) {
+      throw new Error('Invalid response structure');
+    }
+    
+    // Validate tag value
+    if (!['normal', 'needs help', 'critical'].includes(parsed.tag)) {
+      parsed.tag = 'normal'; // fallback
+    }
+    
+    return parsed;
+  } catch (error) {
+    console.error('Failed to parse LLM response:', error);
+    // Return fallback response
+    return {
+      feedback: "Unable to generate feedback at this time. Please try again.",
+      tag: "normal",
+      action: "Please review your inputs and try again."
+    };
+  }
+};
 
 export function FeedBack({ scores }: { scores: Record<number, number> }) {
-  const [response, setResponse] = useState<Response>({ feedback: "", tag: "", action: "" })
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState<string | null>(null)
+// Main component logic
+const [response, setResponse] = useState<Response>({ 
+  feedback: "", 
+  tag: "normal", 
+  action: "" 
+});
+const [loading, setLoading] = useState(false); // Start with false, only set true when actually loading
+const [error, setError] = useState<string | null>(null);
 
-  const fetchFeedback = async () => {
-    try {
-      setLoading(true)
-      setError(null)
-      const categoryScores: CategoryScores = {}
-
-      categories.forEach((category: string, index: number) => {
-        categoryScores[category] = scores[index + 1]
-      })
-
-      const res = await fetch("/api/feedback", {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(categoryScores),
-      })
-
-      if (!res.ok) {
-        throw new Error("Failed to fetch feedback")
-      }
-
-      const data = await res.json()
-      setResponse(JSON.parse(data.response))
-    } catch (error: any) {
-      console.error('Error:', error)
-      setError(error.message)
-    } finally {
-      setLoading(false)
+const fetchFeedback = useCallback(async () => {
+  try {
+    setLoading(true);
+    setError(null);
+    
+    // Validate inputs before making request
+    if (!categories || !scores || categories.length === 0) {
+      throw new Error('Invalid input data');
     }
+    
+    const categoryScores: CategoryScores = {};
+    categories.forEach((category: string, index: number) => {
+      const score = scores[index + 1];
+      if (score !== undefined) {
+        categoryScores[category] = score;
+      }
+    });
+    
+    // Validate that we have some scores
+    if (Object.keys(categoryScores).length === 0) {
+      throw new Error('No valid scores found');
+    }
+    
+    const res = await fetch("/api/feedback", {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(categoryScores),
+    });
+    
+    if (!res.ok) {
+      const errorText = await res.text();
+      throw new Error(`HTTP ${res.status}: ${errorText || 'Failed to fetch feedback'}`);
+    }
+    
+    const data = await res.json();
+    
+    // Use safe parsing
+    const parsedResponse = safeParseLLMResponse(data.response);
+    setResponse(parsedResponse);
+    
+  } catch (error: any) {
+    console.error('Error fetching feedback:', error);
+    setError(error.message);
+    
+    // Set fallback response on error
+    setResponse({
+      feedback: "Unable to generate feedback due to an error.",
+      tag: "normal",
+      action: "Please try again or contact support if the issue persists."
+    });
+  } finally {
+    setLoading(false);
   }
+}, [categories, scores]); // Proper dependencies
 
-  useEffect(() => {
-    fetchFeedback()
-  }, [])
+// Use useEffect correctly
+useEffect(() => {
+  // Only fetch if we have valid data
+    fetchFeedback();
 
+}, [fetchFeedback]);
+
+// Optional: Add manual retry function
+const retryFetch = () => {
+  if (!loading) {
+    fetchFeedback();
+  }
+};
   return (
     <div className="max-w-4xl mx-auto p-4">
       <h2 className="text-3xl font-bold text-center mb-8 text-gray-800">Your Mental Health Insights</h2>

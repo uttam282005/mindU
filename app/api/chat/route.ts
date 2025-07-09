@@ -35,7 +35,7 @@ export async function POST(req: NextRequest) {
           content: query,
         },
       ],
-      model: "llama-3.2-11b-text-preview",
+      model: "meta-llama/llama-4-scout-17b-16e-instruct",
     });
     return NextResponse.json({
       response: chatCompletion.choices[0]?.message?.content || "",

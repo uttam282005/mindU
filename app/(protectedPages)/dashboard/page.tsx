@@ -47,6 +47,7 @@ export default function Component() {
       if (user?.uid) {
         try {
           const response = await getUserResponses(user.uid)
+          console.log(response);
           setData(response)
         } catch (err) {
           setError("Failed to fetch data. Please try again later.")
@@ -88,27 +89,6 @@ export default function Component() {
   }
 
   return (
-    <div className="bg-background min-h-screen">
-      <nav className="bg-primary text-primary-foreground p-4">
-        <div className="container mx-auto flex justify-between items-center">
-          <Link href="/" passHref>
-            <Button variant="ghost">Home</Button>
-          </Link>
-          <div className="flex space-x-4">
-            <Link href="/chat" passHref>
-              <Button variant="ghost">Chat</Button>
-            </Link>
-            <Link href="/take-quiz" passHref>
-              <Button variant="ghost">Take Quiz</Button>
-            </Link>
-            <Link href="/blogs" passHref>
-              <Button variant="ghost">Blogs</Button>
-            </Link>
-            <Button variant="ghost" onClick={logout}>Logout</Button>
-          </div>
-        </div>
-      </nav>
-
       <div className="container mx-auto p-4">
         <h1 className="text-4xl font-bold mb-8 text-center text-primary">Child Mental Health Dashboard</h1>
 
@@ -220,6 +200,5 @@ export default function Component() {
           </TabsContent>
         </Tabs>
       </div>
-    </div>
   )
 }
