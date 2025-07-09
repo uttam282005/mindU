@@ -4,7 +4,7 @@ import Groq from "groq-sdk";
 import { NextRequest, NextResponse } from "next/server";
 // import { GoogleGenerativeAI } from "@google/generative-ai";
 
-export const groq = new Groq({ apiKey: process.env.NEXT_PUBLIC_GROQ_API_KEY! });
+const groq = new Groq({ apiKey: process.env.NEXT_PUBLIC_GROQ_API_KEY! });
 // export const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!);
 // console.log(process.env.NEXT_PUBLIC_GEMINI_API_KEY!)
 // export const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
