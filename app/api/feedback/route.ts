@@ -1,6 +1,6 @@
 
 import { NextRequest, NextResponse } from "next/server";
-import { groq } from "../chat/route";
+import { groq } from "@/lib/groq";
 
 export async function GET() {
   return NextResponse.json({
