@@ -74,9 +74,9 @@ export default function Navbar() {
                     className="relative h-10 w-10 rounded-full ml-4 hover:bg-white/70 border border-transparent hover:border-violet-200/50"
                   >
                     <Avatar className="h-8 w-8">
-                      <AvatarImage src={user.avatar || "/placeholder.svg"} alt={user.name} />
+                <AvatarImage src={"/placeholder.svg"} alt={"user"} />
                       <AvatarFallback className="bg-gradient-to-br from-violet-500 to-purple-600 text-white text-sm">
-                        {user.name?.charAt(0) || user.email?.charAt(0) || "U"}
+                        {"U"}
                       </AvatarFallback>
                     </Avatar>
                   </Button>
