@@ -88,7 +88,7 @@ export default function Navbar() {
                 >
                   <DropdownMenuLabel className="font-normal">
                     <div className="flex flex-col space-y-1">
-                      <p className="text-sm font-medium leading-none text-violet-900">{user.name || "User"}</p>
+                      <p className="text-sm font-medium leading-none text-violet-900">{"User"}</p>
                       <p className="text-xs leading-none text-violet-600">{user.email}</p>
                     </div>
                   </DropdownMenuLabel>
@@ -167,13 +167,13 @@ export default function Navbar() {
                         <div className="px-4 py-3">
                           <div className="flex items-center space-x-3 mb-3">
                             <Avatar className="h-8 w-8">
-                              <AvatarImage src={user.avatar || "/placeholder.svg"} alt={user.name} />
+                              <AvatarImage src={"/placeholder.svg"} alt={"user"} />
                               <AvatarFallback className="bg-gradient-to-br from-violet-500 to-purple-600 text-white text-sm">
-                                {user.name?.charAt(0) || user.email?.charAt(0) || "U"}
+                                { user.email?.charAt(0) || "U"}
                               </AvatarFallback>
                             </Avatar>
                             <div>
-                              <p className="text-sm font-medium text-violet-900">{user.name || "User"}</p>
+                              <p className="text-sm font-medium text-violet-900">{"User"}</p>
                               <p className="text-xs text-violet-600">{user.email}</p>
                             </div>
                           </div>
