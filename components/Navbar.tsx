@@ -15,8 +15,10 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { useAuth } from "@/context/AuthContext"
 import { logout } from "@/lib/auth"
+import { useRouter } from "next/navigation"
 
 export default function Navbar() {
+  const router  = useRouter();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false)
   const { user } = useAuth()
 
@@ -72,7 +74,7 @@ export default function Navbar() {
                   <Button
                     variant="ghost"
                     className="relative h-10 w-10 rounded-full ml-4 hover:bg-white/70 border border-transparent hover:border-violet-200/50"
-                  >
+                  > 
                     <Avatar className="h-8 w-8">
                 <AvatarImage src={"/placeholder.svg"} alt={"user"} />
                       <AvatarFallback className="bg-gradient-to-br from-violet-500 to-purple-600 text-white text-sm">
@@ -95,11 +97,7 @@ export default function Navbar() {
                   <DropdownMenuSeparator className="bg-violet-200/50" />
                   <DropdownMenuItem className="hover:bg-violet-50 focus:bg-violet-50">
                     <User className="mr-2 h-4 w-4 text-violet-600" />
-                    <span className="text-violet-700">Profile</span>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem className="hover:bg-violet-50 focus:bg-violet-50">
-                    <Settings className="mr-2 h-4 w-4 text-violet-600" />
-                    <span className="text-violet-700">Settings</span>
+                    <button onClick={() =>router.push('/dashboard')} className="text-violet-700">Profile</button>
                   </DropdownMenuItem>
                   <DropdownMenuSeparator className="bg-violet-200/50" />
                   <DropdownMenuItem

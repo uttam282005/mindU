@@ -124,7 +124,7 @@ export default function Component() {
           Start tracking your mental health by completing your first assessment.
         </p>
         <Button asChild className="bg-violet-600 hover:bg-violet-700">
-          <Link href="/assessment">Take Assessment</Link>
+          <Link href="/evalute">Take Assessment</Link>
         </Button>
       </div>
     )

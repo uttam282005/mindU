@@ -111,14 +111,6 @@ export default function LandingPage() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, staggerChildren: 0.1 }}
               >
-                <motion.li>
-                  <Link
-                    href="/about"
-                    className="text-muted-foreground hover:text-foreground transition-colors duration-200 font-medium"
-                  >
-                    About Us
-                  </Link>
-                </motion.li>
 
                 <motion.li>
                   {!user ? (
@@ -176,13 +168,6 @@ export default function LandingPage() {
                     className="bg-violet-600 hover:bg-violet-700 text-white text-lg px-8 py-4"
                   >
                     Start Your Journey
-                  </Button>
-                  <Button
-                    variant="outline"
-                    size="lg"
-                    className="border-violet-300 text-violet-700 hover:bg-violet-50 dark:border-violet-600 dark:text-violet-300 dark:hover:bg-violet-900/20 text-lg px-8 py-4 bg-transparent"
-                  >
-                    Learn More
                   </Button>
                 </div>
 
@@ -332,13 +317,6 @@ export default function LandingPage() {
               >
                 Start Free Today
               </Button>
-              <Button
-                variant="outline"
-                size="lg"
-                className="border-violet-300 text-violet-700 hover:bg-violet-50 dark:border-violet-600 dark:text-violet-300 dark:hover:bg-violet-900/20 text-lg px-8 py-4 bg-transparent"
-              >
-                <Link href="/resources">View Resources</Link>
-              </Button>
             </div>
           </motion.div>
         </section>
@@ -355,51 +333,6 @@ export default function LandingPage() {
               <p className="text-violet-200 leading-relaxed">
                 Empowering mental wellness through compassionate technology and evidence-based support.
               </p>
-            </div>
-            <div>
-              <h4 className="text-lg font-semibold mb-4">Quick Links</h4>
-              <ul className="space-y-3">
-                <li>
-                  <Link href="/about" className="text-violet-200 hover:text-violet-100 transition-colors">
-                    About Us
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/features" className="text-violet-200 hover:text-violet-100 transition-colors">
-                    Features
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/pricing" className="text-violet-200 hover:text-violet-100 transition-colors">
-                    Pricing
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/contact" className="text-violet-200 hover:text-violet-100 transition-colors">
-                    Contact
-                  </Link>
-                </li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="text-lg font-semibold mb-4">Legal</h4>
-              <ul className="space-y-3">
-                <li>
-                  <Link href="/terms" className="text-violet-200 hover:text-violet-100 transition-colors">
-                    Terms of Service
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/privacy" className="text-violet-200 hover:text-violet-100 transition-colors">
-                    Privacy Policy
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/cookies" className="text-violet-200 hover:text-violet-100 transition-colors">
-                    Cookie Policy
-                  </Link>
-                </li>
-              </ul>
             </div>
             <div>
               <h4 className="text-lg font-semibold mb-4">Connect With Us</h4>
